@@ -1,0 +1,21 @@
+{
+	"name": "ETS2-Rich-Presence-Discord",
+	"version": "1.0.0",
+	"description": "An easy tool to let others see your current job, speed, truck etc. on Discord!",
+	"main": "",
+	"dependencies": {
+		"discord-rpc": "^3.0.0-beta.9",
+		"ip": "^1.1.5"
+	},
+	"devDependencies": {},
+	"repository": {
+		"type": "",
+		"url": ""
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "LasseNiermann",
+	"license": "MIT",
+	"readme": "This is a dummy readme"
+}
