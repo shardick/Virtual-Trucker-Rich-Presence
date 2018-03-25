@@ -3,6 +3,9 @@ An easy tool to let others see your current job, speed, truck etc. on Discord!
 
 ## Installation
 The easiest way should be to  follow this YouTube video step by step.
+https://youtu.be/eQOBK1wW7vg
+
+
 But here are the most important information:
 1. Install the ETS2 Telemetry server in a save folder (https://github.com/Funbit/ets2-telemetry-server).
 2. Install this files into another folder.
