@@ -9,7 +9,9 @@ https://youtu.be/eQOBK1wW7vg
 
 
 But here is the most important information:
+
 REQUIRED PROGRAMS:
+
 ETS2 Telemtry server: https://github.com/Funbit/ets2-telemetry-server.
 
 Node.js: https://nodejs.org.
