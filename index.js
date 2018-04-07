@@ -1,7 +1,3 @@
-// EURO TRUCK SIMULATOR 2 - RICH PRESENCE
-// Version 1.1
-// Made by SgtBreadStick, Rein & Lasse
-
 const http = require("http");
 const DiscordRPC = require('discord-rpc');
 var ip = require("ip");
@@ -31,7 +27,7 @@ async function updateStatus() {
 				rpc.setActivity({
 					details: `Game Not Started`,
 					state: `Waiting for Game...`,
-					largeImageKey: `large_image_1`,
+					largeImageKey: `large_image_idle`,
 				});
 			} else if(body.trailer.attached === true) {
 				//Game Connected - Job (Driving)
@@ -39,21 +35,45 @@ async function updateStatus() {
 				rpc.setActivity({
 					state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
 					details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
-					smallImageText: `${body.truck.make} ${body.truck.model} - Driven ${Math.round(body.truck.odometer)} KMs`,
+					smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 					smallImageKey: `brand_${body.truck.id}`,
-					largeImageKey: `large_image_1`,
 					largeImageText: `Estimated Income: ${body.job.income}`,
 				});
+				if(body.truck.lightsBeamLowOn === true) {
+					rpc.setActivity({
+						largeImageKey: `large_image_night`
+					});
+					} else if(body.truck.wipersOn === true) {
+					rpc.setActivity({
+						largeImageKey: `large_image_rain`,
+					});
+					} else {
+					rpc.setActivity({
+						largeImageKey: `large_image_sunny`
+					});
+				}
 			} else {
 				//Game Connected - Driving
 				//console.log("Game Connected - No Job");
 				rpc.setActivity({
 					state: `Driving`,
 					details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
-					smallImageText: `${body.truck.make} ${body.truck.model} - Driven ${Math.round(body.truck.odometer)} KMs`,
+					smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 					smallImageKey: `brand_${body.truck.id}`,
-					largeImageKey: `large_image_1`,
 				});
+				if(body.truck.lightsBeamLowOn === true) {
+					rpc.setActivity({
+						largeImageKey: `large_image_night`
+					});
+					} else if(body.truck.wipersOn === true) {
+					rpc.setActivity({
+						largeImageKey: `large_image_rain`,
+					});
+					} else {
+					rpc.setActivity({
+						largeImageKey: `large_image_sunny`
+					});
+				}
 			}
 		//End
 		});
