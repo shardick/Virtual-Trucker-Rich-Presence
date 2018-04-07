@@ -1,18 +1,23 @@
 # ETS2 - Rich Presence on Discord
-An easy tool to let others see your current job, speed, truck etc. on Discord!
+An easy tool to let others see your current job, speed, truck etc. using Discord Rich Presence!
+Made by Lasse#0001, Rein#9489, SgtBreadStick#2004.
+Discord server for support and getting your image featured: https://discord.gg/UwSJjSA
 
 ## Installation
 The easiest way should be to  follow this YouTube video step by step.
 https://youtu.be/eQOBK1wW7vg
 
 
-But here are the most important information:
-1. Install the ETS2 Telemetry server in a save folder (https://github.com/Funbit/ets2-telemetry-server).
-2. Install this files into another folder.
+But here is the most important information:
+REQUIRED PROGRAMS:
+ETS2 Telemtry server: https://github.com/Funbit/ets2-telemetry-server.
+Node.js: https://nodejs.org.
+Git: https://git-scm.com
+1. Install and download the required programs. 
 3. Start the Telemetry server.
-4. Install the required node modules using "npm i"
-5. Start this tool using "node index.js"
+4. Open cmd and type cd <ets2 rich presence discord location> Install the required node modules using "npm i"
+5. Start the rich presence by typing "node index.js"
 6. Start ETS2.
 7. Now make sure to select the correct "game" in Discords Game Settings. In this case you should try to find the "game" called "node"
 8. Select that and start playing!
-I know... that wasn't the best explanation... Just watch the video!
+If anything was unclear please refer to the youtube tutorial.
