@@ -1,6 +1,6 @@
 # ETS2 - Rich Presence on Discord
 An easy tool to let others see your current job, speed, truck etc. using Discord Rich Presence!
-Made by Lasse#0001, Rein#9489, SgtBreadStick#2004.
+Made by Lasse#0001, Rein#9489 and SgtBreadStick#2004.
 Discord server for support and getting your image featured: https://discord.gg/UwSJjSA
 
 ## Installation
