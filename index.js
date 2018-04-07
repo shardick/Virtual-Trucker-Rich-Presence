@@ -1,3 +1,7 @@
+// EURO TRUCK SIMULATOR 2 - RICH PRESENCE
+// Version 1.1
+// Made by SgtBreadStick, Rein & Lasse
+
 const http = require("http");
 const DiscordRPC = require('discord-rpc');
 var ip = require("ip");
@@ -33,20 +37,20 @@ async function updateStatus() {
 				//Game Connected - Job (Driving)
 				//console.log("Yeah! A job!");
 				rpc.setActivity({
-					details: `${body.trailer.name}: ${body.job.sourceCity} -> ${body.job.destinationCity}`,
-					state: `${body.truck.parkBrakeOn ? `Parking Brake` : `${Math.round(body.truck.speed)} km/h`}`,
-					smallImageText: `${body.truck.make} ${body.truck.model}`,
+					state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
+					details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+					smallImageText: `${body.truck.make} ${body.truck.model} - Driven ${Math.round(body.truck.odometer)} KMs`,
 					smallImageKey: `brand_${body.truck.id}`,
 					largeImageKey: `large_image_1`,
 					largeImageText: `Estimated Income: ${body.job.income}`,
 				});
 			} else {
-				//Game Connected - Idle (Driving)
+				//Game Connected - Driving
 				//console.log("Game Connected - No Job");
 				rpc.setActivity({
-					state: `${body.truck.parkBrakeOn ? `Parking Brake` : `${Math.round(body.truck.speed)} km/h`}`,
-					details: `No Job`,
-					smallImageText: `${body.truck.make} ${body.truck.model}`,
+					state: `Driving`,
+					details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+					smallImageText: `${body.truck.make} ${body.truck.model} - Driven ${Math.round(body.truck.odometer)} KMs`,
 					smallImageKey: `brand_${body.truck.id}`,
 					largeImageKey: `large_image_1`,
 				});
