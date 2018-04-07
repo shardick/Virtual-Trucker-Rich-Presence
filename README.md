@@ -11,8 +11,11 @@ https://youtu.be/eQOBK1wW7vg
 But here is the most important information:
 REQUIRED PROGRAMS:
 ETS2 Telemtry server: https://github.com/Funbit/ets2-telemetry-server.
+
 Node.js: https://nodejs.org.
+
 Git: https://git-scm.com
+
 1. Install and download the required programs. 
 3. Start the Telemetry server.
 4. Open cmd and type cd <ets2 rich presence discord location> Install the required node modules using "npm i"
