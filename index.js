@@ -1,3 +1,7 @@
+// EURO TRUCK SIMULATOR 2 - RICH PRESENCE
+// Version 1.2
+// Made by SgtBreadStick, Rein & Lasse
+
 const http = require("http");
 const DiscordRPC = require('discord-rpc');
 var ip = require("ip");
@@ -26,51 +30,65 @@ async function updateStatus() {
 				//console.log("Game not connected");
 				rpc.setActivity({
 					details: `Game Not Started`,
-					state: `Waiting for Game...`,
+					state: `Idle`,
 					largeImageKey: `large_image_idle`,
 				});
 			} else if(body.trailer.attached === true) {
 				//Game Connected - Job (Driving)
 				//console.log("Yeah! A job!");
-				rpc.setActivity({
-					state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
-					details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
-					smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-					smallImageKey: `brand_${body.truck.id}`,
-					largeImageText: `Estimated Income: ${body.job.income}`,
-				});
 				if(body.truck.lightsBeamLowOn === true) {
 					rpc.setActivity({
-						largeImageKey: `large_image_night`
+						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
+						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
+						smallImageKey: `brand_${body.truck.id}`,
+						largeImageText: `Estimated Income: €{body.job.income}`,
+						largeImageKey: `large_image_night`,
 					});
 					} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
+						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
+						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
+						smallImageKey: `brand_${body.truck.id}`,
+						largeImageText: `Estimated Income: €{body.job.income}`,
 						largeImageKey: `large_image_rain`,
 					});
 					} else {
 					rpc.setActivity({
+						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
+						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
+						smallImageKey: `brand_${body.truck.id}`,
+						largeImageText: `Estimated Income: €{body.job.income}`,
 						largeImageKey: `large_image_sunny`
 					});
 				}
 			} else {
 				//Game Connected - Driving
 				//console.log("Game Connected - No Job");
-				rpc.setActivity({
-					state: `Driving`,
-					details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
-					smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-					smallImageKey: `brand_${body.truck.id}`,
-				});
 				if(body.truck.lightsBeamLowOn === true) {
 					rpc.setActivity({
-						largeImageKey: `large_image_night`
+						state: `Driving`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
+						smallImageKey: `brand_${body.truck.id}`,
+						largeImageKey: `large_image_night`,
 					});
 					} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
+						state: `Driving`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
+						smallImageKey: `brand_${body.truck.id}`,
 						largeImageKey: `large_image_rain`,
 					});
 					} else {
 					rpc.setActivity({
+						state: `Driving`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
+						smallImageKey: `brand_${body.truck.id}`,
 						largeImageKey: `large_image_sunny`
 					});
 				}
@@ -82,7 +100,7 @@ async function updateStatus() {
 
 rpc.on('ready', () => {
 	console.log(`http://${ip.address()}:25555/api/ets2/telemetry`);
-	console.log(`Starting Presence...`);
+	console.log(`Presence Started. Don't forget to put node as currently playing in Discord settings.`);
 	updateStatus();
 	setInterval(() => {
 		updateStatus();
