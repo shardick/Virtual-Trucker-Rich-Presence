@@ -33,7 +33,7 @@ async function updateStatus() {
 					details: `Game Not Started | Idle`,
 					state: `Version: 1.2 BETA`,
 					largeImageText: `Currently Idle`,
-					largeImageKey: `large_image_idle`,
+					largeImageKey: `large_ets2_idle`,
 					startTimestamp: Date.now(),
 				});
 			} else if(body.trailer.attached === true) {
@@ -46,29 +46,29 @@ async function updateStatus() {
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageText: `Estimated Income: €${body.job.income}`,
-						largeImageKey: `large_image_night`,
+						largeImageKey: `large_ets2_night`,
 						startTimestamp,
-					});
-					} else if(body.truck.wipersOn === true) {
+					})
+				} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
 						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageText: `Estimated Income: €${body.job.income}`,
-						largeImageKey: `large_image_rain`,
+						largeImageKey: `large_ets2_rain`,
 						startTimestamp,
-					});
-					} else {
+					})
+				} else {
 					rpc.setActivity({
 						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageText: `Estimated Income: €${body.job.income}`,
-						largeImageKey: `large_image_sunny`,
+						largeImageKey: `large_ets2_day`,
 						startTimestamp,
-					});
+					})
 				}
 			} else {
 				//Game Connected - Driving
@@ -79,27 +79,27 @@ async function updateStatus() {
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
-						largeImageKey: `large_image_night`,
+						largeImageKey: `large_ets2_night`,
 						startTimestamp,
-					});
-					} else if(body.truck.wipersOn === true) {
+					})
+				} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
 						state: `Freeroaming`,
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
-						largeImageKey: `large_image_rain`,
+						largeImageKey: `large_ets2_rain`,
 						startTimestamp,
-					});
-					} else {
+					})
+				} else {
 					rpc.setActivity({
 						state: `Freeroaming`,
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
-						largeImageKey: `large_image_sunny`,
+						largeImageKey: `large_ets2_day`,
 						startTimestamp,
-					});
+					})
 				}
 			}
 		//End
@@ -113,7 +113,7 @@ rpc.on('ready', () => {
 	updateStatus();
 	setInterval(() => {
 		updateStatus();
-	}, 10000); //Fetching information every 10 seconds
+	}, 1000); //Fetching information every 10 seconds
 });
 
 rpc.login("426512878108016647").catch(console.error);
