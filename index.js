@@ -6,6 +6,7 @@ const http = require("http");
 const DiscordRPC = require('discord-rpc');
 var ip = require("ip");
 const url = `http://${ip.address()}:25555/api/ets2/telemetry`;
+const startTimestamp = new Date()
 
 const rpc = new DiscordRPC.Client({
 	transport: 'ipc'
@@ -29,9 +30,11 @@ async function updateStatus() {
 				//Game Not Connected
 				//console.log("Game not connected");
 				rpc.setActivity({
-					details: `Game Not Started`,
-					state: `Idle`,
+					details: `Game Not Started | Idle`,
+					state: `Version: 1.2 BETA`,
+					largeImageText: `Currently Idle`,
 					largeImageKey: `large_image_idle`,
+					startTimestamp: Date.now(),
 				});
 			} else if(body.trailer.attached === true) {
 				//Game Connected - Job (Driving)
@@ -42,8 +45,9 @@ async function updateStatus() {
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
-						largeImageText: `Estimated Income: €{body.job.income}`,
+						largeImageText: `Estimated Income: €${body.job.income}`,
 						largeImageKey: `large_image_night`,
+						startTimestamp,
 					});
 					} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
@@ -51,8 +55,9 @@ async function updateStatus() {
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
-						largeImageText: `Estimated Income: €{body.job.income}`,
+						largeImageText: `Estimated Income: €${body.job.income}`,
 						largeImageKey: `large_image_rain`,
+						startTimestamp,
 					});
 					} else {
 					rpc.setActivity({
@@ -60,8 +65,9 @@ async function updateStatus() {
 						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
-						largeImageText: `Estimated Income: €{body.job.income}`,
-						largeImageKey: `large_image_sunny`
+						largeImageText: `Estimated Income: €${body.job.income}`,
+						largeImageKey: `large_image_sunny`,
+						startTimestamp,
 					});
 				}
 			} else {
@@ -69,27 +75,30 @@ async function updateStatus() {
 				//console.log("Game Connected - No Job");
 				if(body.truck.lightsBeamLowOn === true) {
 					rpc.setActivity({
-						state: `Driving`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+						state: `Freeroaming`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageKey: `large_image_night`,
+						startTimestamp,
 					});
 					} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
-						state: `Driving`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+						state: `Freeroaming`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageKey: `large_image_rain`,
+						startTimestamp,
 					});
 					} else {
 					rpc.setActivity({
-						state: `Driving`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h in a ${body.navigation.speedLimit} km/h`,
+						state: `Freeroaming`,
+						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
-						largeImageKey: `large_image_sunny`
+						largeImageKey: `large_image_sunny`,
+						startTimestamp,
 					});
 				}
 			}
@@ -104,7 +113,7 @@ rpc.on('ready', () => {
 	updateStatus();
 	setInterval(() => {
 		updateStatus();
-	}, 1000); //Fetching information every second
+	}, 10000); //Fetching information every 10 seconds
 });
 
 rpc.login("426512878108016647").catch(console.error);
