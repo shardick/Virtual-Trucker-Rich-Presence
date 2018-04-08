@@ -6,7 +6,6 @@ const http = require("http");
 const DiscordRPC = require('discord-rpc');
 var ip = require("ip");
 const url = `http://${ip.address()}:25555/api/ets2/telemetry`;
-const startTimestamp = new Date()
 
 const rpc = new DiscordRPC.Client({
 	transport: 'ipc'
@@ -34,7 +33,6 @@ async function updateStatus() {
 					state: `Version: 1.2 BETA`,
 					largeImageText: `Currently Idle`,
 					largeImageKey: `large_ets2_idle`,
-					startTimestamp: Date.now(),
 				});
 			} else if(body.trailer.attached === true) {
 				//Game Connected - Job (Driving)
@@ -47,7 +45,6 @@ async function updateStatus() {
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageText: `Estimated Income: €${body.job.income}`,
 						largeImageKey: `large_ets2_night`,
-						startTimestamp,
 					})
 				} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
@@ -57,7 +54,6 @@ async function updateStatus() {
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageText: `Estimated Income: €${body.job.income}`,
 						largeImageKey: `large_ets2_rain`,
-						startTimestamp,
 					})
 				} else {
 					rpc.setActivity({
@@ -67,7 +63,6 @@ async function updateStatus() {
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageText: `Estimated Income: €${body.job.income}`,
 						largeImageKey: `large_ets2_day`,
-						startTimestamp,
 					})
 				}
 			} else {
@@ -80,7 +75,6 @@ async function updateStatus() {
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageKey: `large_ets2_night`,
-						startTimestamp,
 					})
 				} else if(body.truck.wipersOn === true) {
 					rpc.setActivity({
@@ -89,7 +83,6 @@ async function updateStatus() {
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageKey: `large_ets2_rain`,
-						startTimestamp,
 					})
 				} else {
 					rpc.setActivity({
@@ -98,7 +91,6 @@ async function updateStatus() {
 						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
 						smallImageKey: `brand_${body.truck.id}`,
 						largeImageKey: `large_ets2_day`,
-						startTimestamp,
 					})
 				}
 			}
