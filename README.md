@@ -20,7 +20,7 @@ Git: https://git-scm.com
 
 1. Install and download the required programs. 
 3. Start the Telemetry server.
-4. Open cmd and type cd <ets2 rich presence discord location> Install the required node modules using "npm i"
+4. Open cmd/powershell and type cd <ets2 rich presence discord location> Install the required node modules using "npm i"
 5. Start the rich presence by typing "node index.js"
 6. Start ETS2.
 7. Now make sure to select the correct "game" in Discords Game Settings. In this case you should try to find the "game" called "node"
