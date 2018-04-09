@@ -16,32 +16,32 @@ etcars.on('data', function(data) {
 	if (!rpc) console.log("Couldn't find discord-rpc!");
 	//use a try / catch as sometimes the data isn't there when first connecting...plus it's json parsing...
 		try{
-			if(data.telemetry.trailerConnected === true) {
+			if(data.telemetry.job.onJob === true) {
 				//Game Connected - Job (Driving)
 				//console.log("Yeah! A job!");
 				if(data.telemetry.truck.lights.lowBeam === true) {
 					rpc.setActivity({
 						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
-						details: `Driving at ${Math.round(data.telemetry.speed * 2.23694)} mph`,
-						smallImageText: `${data.telemetry.make} ${data.telemetry.model} - At ${Math.round(data.telemetry.odometer)} Miles`,
+						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
-						largeImageText: `Estimated Income: €${data.telemetry.income}`,
+						largeImageText: `Estimated Income: €${data.telemetry.job.income}`,
 						largeImageKey: `ets2rpc_night`,
 					});
 				} else if(data.telemetry.truck.wipersOn === true) {
 					rpc.setActivity({
 						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
 						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
-						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageText: `Estimated Income: €${data.telemetry.job.income}`,
 						largeImageKey: `ets2rpc_rain`,
 					});
 				} else {
 					rpc.setActivity({
-						state: `Delivering from ${data.truck.telemetry.job.sourceCity} to ${data.truck.telemetry.job.destinationCity}`,
-						details: `Driving at ${Math.round(data.telemetry.speed * 2.23694)} mph`,
-						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
+						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageText: `Estimated Income: €${data.telemetry.job.income}`,
 						largeImageKey: `ets2rpc_day`,
@@ -54,7 +54,7 @@ etcars.on('data', function(data) {
 					rpc.setActivity({
 						state: `Freeroaming`,
 						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
-						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageKey: `ets2rpc_night`,
 					});
@@ -62,7 +62,7 @@ etcars.on('data', function(data) {
 					rpc.setActivity({
 						state: `Freeroaming`,
 						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
-						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageKey: `ets2rpc_rain`,
 					});
@@ -70,7 +70,7 @@ etcars.on('data', function(data) {
 					rpc.setActivity({
 						state: `Freeroaming`,
 						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
-						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageKey: `ets2rpc_day`,
 					});
