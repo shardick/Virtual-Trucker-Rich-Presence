@@ -25,14 +25,15 @@ Git: https://git-scm.com
 7. Now make sure to select the correct "game" in Discords Game Settings. In this case you should try to find the "game" called "node".  
 8. Select that and start playing!  
 
-#Credits To Developers
-###Made by  
+# Credits To Developers
+
+### Made by  
 Lasse  
 Rein  
 SgtBreadStick.  
 
-###Edited by  
+### Edited by  
 Josh Menzel to work with ETCARS.  
 
-###ETCARS plugin created by  
+### ETCARS plugin created by  
 dowmeister & Josh Menzel.
