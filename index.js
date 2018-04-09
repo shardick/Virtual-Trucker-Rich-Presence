@@ -17,24 +17,24 @@ etcars.on('data', function(data) {
 	if (!rpc) console.log("Couldn't find discord-rpc!");
 	//use a try / catch as sometimes the data isn't there when first connecting...plus it's json parsing...
 	try{
-		if(data.telemetry.truck.trailerConnected === true) {
+		if(data.telemetry.job.onJob === true) {
 			//Game Connected - Job (Driving)
 			//console.log("Yeah! A job!");
 			rpc.setActivity({
 				state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
 				details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
-				smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - Driven ${Math.round(data.telemetry.truck.odometer)} Miles`,
+				smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 				smallImageKey: `brand_${data.telemetry.truck.makeID}`,
+				largeImageText: `Estimated Income: €${data.telemetry.job.income}`,
 				largeImageKey: `large_image_1`,
-				largeImageText: `Estimated Income: ${data.telemetry.job.income}`,
 			});
 		} else {
 			//Game Connected - Driving
 			//console.log("Game Connected - No Job");
 			rpc.setActivity({
 				state: `Driving`,
-				details: `Driving at ${Math.multiply(data.telemetry.truck.speed,2)} mph in a ${Math.round(data.telemetry.navigation.speedLimit * 2.23694)} mph`,
-				smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - Driven ${Math.round(data.telemetry.truck.odometer)} Miles`,
+				details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
+				smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - Driven ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 				smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 				largeImageKey: `large_image_1`,
 			});
