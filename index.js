@@ -21,7 +21,7 @@ etcars.on('data', function(data) {
 				//console.log("Yeah! A job!");
 				if(data.telemetry.truck.lights.lowBeam === true) {
 					rpc.setActivity({
-						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
+						state: `${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
 						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
 						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
@@ -30,7 +30,7 @@ etcars.on('data', function(data) {
 					});
 				} else if(data.telemetry.truck.wipersOn === true) {
 					rpc.setActivity({
-						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
+						state: `${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
 						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
 						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
@@ -39,7 +39,7 @@ etcars.on('data', function(data) {
 					});
 				} else {
 					rpc.setActivity({
-						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
+						state: `${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
 						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
 						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer * 0.621371)} Miles`,
 						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
@@ -82,7 +82,7 @@ etcars.on('data', function(data) {
 		console.log(error);
 	}
 });
- 
+
 etcars.on('connect', function(data) {
     rpc.setActivity({
 		details: `Game Started`,
@@ -91,7 +91,7 @@ etcars.on('connect', function(data) {
 		largeImageText: `Version: 2.0 BETA`,
 	});
 });
- 
+
 etcars.on('error', function(data) {
     rpc.setActivity({
 		details: `Plugin Error`,
