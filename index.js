@@ -1,111 +1,117 @@
 // EURO TRUCK SIMULATOR 2 - RICH PRESENCE
-// Version 1.2
+// Version 2.0 BETA
 // Made by SgtBreadStick, Rein & Lasse
+// Edited by Josh Menzel to work with ETCARS
+// ETCARS plugin created by dowmeister, edited by Josh Menzel
 
-const http = require("http");
 const DiscordRPC = require('discord-rpc');
 var ip = require("ip");
-const url = `http://${ip.address()}:25555/api/ets2/telemetry`;
-
+var ETCarsClient = require('etcars-node-client');
+var etcars = new ETCarsClient();
 const rpc = new DiscordRPC.Client({
 	transport: 'ipc'
 });
 
-async function updateStatus() {
-	http.get(url, res => {
-	  res.setEncoding("utf8");
-	  let body = "";
-	  res.on("data", data => {
-		body += data;
-	  });
-	  res.on("end", () => {
-			body = JSON.parse(body);
-
-			//Checking For Connections
-			if (!rpc) console.log("Couldn't find discord-rpc!");
-			if(body == undefined) console.log("Couldn't find the telemetry data!")
-
-			if(body.game.connected === false) {
-				//Game Not Connected
-				//console.log("Game not connected");
-				rpc.setActivity({
-					details: `Game Not Started | Idle`,
-					state: `Version: 1.2 BETA`,
-					largeImageText: `Currently Idle`,
-					largeImageKey: `ets2rpc_idle`,
-				});
-			} else if(body.trailer.attached === true) {
+etcars.on('data', function(data) {
+	if (!rpc) console.log("Couldn't find discord-rpc!");
+	//use a try / catch as sometimes the data isn't there when first connecting...plus it's json parsing...
+		try{
+			if(data.telemetry.trailerConnected === true) {
 				//Game Connected - Job (Driving)
 				//console.log("Yeah! A job!");
-				if(body.truck.lightsBeamLowOn === true) {
+				if(data.telemetry.truck.lights.lowBeam === true) {
 					rpc.setActivity({
-						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
-						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-						smallImageKey: `brand_${body.truck.id}`,
-						largeImageText: `Estimated Income: €${body.job.income}`,
+						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
+						details: `Driving at ${Math.round(data.telemetry.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.make} ${data.telemetry.model} - At ${Math.round(data.telemetry.odometer)} Miles`,
+						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
+						largeImageText: `Estimated Income: €${data.telemetry.income}`,
 						largeImageKey: `ets2rpc_night`,
-					})
-				} else if(body.truck.wipersOn === true) {
+					});
+				} else if(data.telemetry.truck.wipersOn === true) {
 					rpc.setActivity({
-						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
-						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-						smallImageKey: `brand_${body.truck.id}`,
-						largeImageText: `Estimated Income: €${body.job.income}`,
+						state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
+						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
+						largeImageText: `Estimated Income: €${data.telemetry.job.income}`,
 						largeImageKey: `ets2rpc_rain`,
-					})
+					});
 				} else {
 					rpc.setActivity({
-						state: `Delivering from ${body.job.sourceCity} to ${body.job.destinationCity}`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
-						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-						smallImageKey: `brand_${body.truck.id}`,
-						largeImageText: `Estimated Income: €${body.job.income}`,
+						state: `Delivering from ${data.truck.telemetry.job.sourceCity} to ${data.truck.telemetry.job.destinationCity}`,
+						details: `Driving at ${Math.round(data.telemetry.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
+						largeImageText: `Estimated Income: €${data.telemetry.job.income}`,
 						largeImageKey: `ets2rpc_day`,
-					})
+					});
 				}
 			} else {
 				//Game Connected - Driving
 				//console.log("Game Connected - No Job");
-				if(body.truck.lightsBeamLowOn === true) {
+				if(data.telemetry.truck.lights.lowBeam === true) {
 					rpc.setActivity({
 						state: `Freeroaming`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
-						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-						smallImageKey: `brand_${body.truck.id}`,
+						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageKey: `ets2rpc_night`,
-					})
-				} else if(body.truck.wipersOn === true) {
+					});
+				} else if(data.telemetry.truck.wipersOn === true) {
 					rpc.setActivity({
 						state: `Freeroaming`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
-						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-						smallImageKey: `brand_${body.truck.id}`,
+						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageKey: `ets2rpc_rain`,
-					})
+					});
 				} else {
 					rpc.setActivity({
 						state: `Freeroaming`,
-						details: `Driving at ${Math.round(body.truck.speed)} km/h`,
-						smallImageText: `${body.truck.make} ${body.truck.model} - At ${Math.round(body.truck.odometer)} KMs`,
-						smallImageKey: `brand_${body.truck.id}`,
+						details: `Driving at ${Math.round(data.telemetry.truck.speed * 2.23694)} mph`,
+						smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${Math.round(data.telemetry.truck.odometer)} Miles`,
+						smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 						largeImageKey: `ets2rpc_day`,
-					})
+					});
 				}
 			}
-		//End
-		});
+		}
+    catch(error)
+    {
+		console.log(error);
+	}
+});
+ 
+etcars.on('connect', function(data) {
+    rpc.setActivity({
+		details: `Game Started`,
+		state: `Waiting for data...`,
+		largeImageKey: `ets2rpc_idle`,
+		largeImageText: `Version: 2.0 BETA`,
 	});
-}
+});
+ 
+etcars.on('error', function(data) {
+    rpc.setActivity({
+		details: `Plugin Error`,
+		state: `Waiting for Game...`,
+		largeImageKey: `ets2rpc_idle`,
+		largeImageText: `Version: 2.0 BETA`,
+	});
+});
+
+
 
 rpc.on('ready', () => {
-	console.log(`http://${ip.address()}:25555/api/ets2/telemetry`);
-	console.log(`Presence Started. Don't forget to put node as currently playing in Discord settings.`);
-	updateStatus();
-	setInterval(() => {
-		updateStatus();
-	}, 1000); //Fetching information every 10 seconds
+	console.log(`Presence Starting. Don't forget to put node as currently playing in Discord settings.`);
+	rpc.setActivity({
+		details: `Game Not Started`,
+		state: `Waiting for Game...`,
+		largeImageKey: `ets2rpc_idle`,
+		largeImageText: `Version: 2.0 BETA`,
+	});
+	etcars.connect();
 });
 
 rpc.login("426512878108016647").catch(console.error);
