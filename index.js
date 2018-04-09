@@ -22,7 +22,7 @@ etcars.on('data', function(data) {
 			//console.log("Yeah! A job!");
 			rpc.setActivity({
 				state: `Delivering from ${data.telemetry.job.sourceCity} to ${data.telemetry.job.destinationCity}`,
-				details: `Driving at ${Math.round(data.telemetry.truck.speed)} m/s in a ${data.telemetry.navigation.speedLimit} m/s`,
+				details: `Driving at ${Math.round(data.telemetry.truck.speed)} m/s in a ${Math.round(data.telemetry.navigation.speedLimit)} m/s`,
 				smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - Driven ${Math.round(data.telemetry.truck.odometer)} KMs`,
 				smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 				largeImageKey: `large_image_1`,
@@ -33,7 +33,7 @@ etcars.on('data', function(data) {
 			//console.log("Game Connected - No Job");
 			rpc.setActivity({
 				state: `Driving`,
-				details: `Driving at ${Math.round(data.telemetry.truck.speed)} m/s in a ${data.telemetry.navigation.speedLimit} m/s`,
+				details: `Driving at ${Math.multiply(data.telemetry.truck.speed,2)} mph in a ${Math.round(data.telemetry.navigation.speedLimit)} m/s`,
 				smallImageText: `${data.telemetry.truck.make} ${data.telemetry.truck.model} - Driven ${Math.round(data.telemetry.truck.odometer)} KMs`,
 				smallImageKey: `brand_${data.telemetry.truck.makeID}`,
 				largeImageKey: `large_image_1`,

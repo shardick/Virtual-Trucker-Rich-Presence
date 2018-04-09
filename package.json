@@ -4,8 +4,7 @@
 	"description": "An easy tool to let others see your current job, speed, truck etc. on Discord!",
 	"main": "",
 	"dependencies": {
-		"discord-rpc": "^3.0.0-beta.10",
-		"etcars-node-client": "^1.0.2",
+		"discord-rpc": "^3.0.0-beta.9",
 		"ip": "^1.1.5"
 	},
 	"devDependencies": {},
