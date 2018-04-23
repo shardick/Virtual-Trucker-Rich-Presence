@@ -13,7 +13,7 @@ var etcars = new ETCarsClient();
 const rpc = new DiscordRPC.Client({
 	transport: 'ipc'
 });
-var mpCheckerInterval = 1 * 60 * 1000; // 1 minute
+var mpCheckerInterval = 3 * 60 * 1000; // 1 minute
 var mpInfo = null;
 var lastData = null;
 
